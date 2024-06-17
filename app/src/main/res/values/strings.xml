@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">AppEmprende</string>
+    <string name="app_name">EmprendeApp</string>
+    <string name="nav_open">Abrir menu lateral</string>
+    <string name="nav_close">Cerrar menu lateral</string>
 </resources>
