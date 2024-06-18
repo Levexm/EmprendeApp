@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_home"
+        android:title="Home"
+        android:icon="@drawable/icon_home" />
+
+    <item
+        android:id="@+id/bottom_espacios"
+        android:title="Espacios"
+        android:icon="@drawable/icon_espacios" />
+
+    <item
+        android:id="@+id/bottom_empleo"
+        android:title="Empleo"
+        android:icon="@drawable/icon_empeleo" />
+
+    <item
+        android:id="@+id/bottom_formacion"
+        android:title="Formación"
+        android:icon="@drawable/icon_formacion" />
+
+    <!--<item
+        android:id="@+id/bottom_videos"
+        android:title="Videos"
+        android:icon="@drawable/icon_videos" />-->
+
+    <item
+        android:id="@+id/bottom_contacto"
+        android:title="Contacto"
+        android:icon="@drawable/icon_contacto" />
+
+</menu>
