@@ -2,6 +2,7 @@ package com.example.appemprende
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -37,6 +38,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         fragmentManager = supportFragmentManager
         openFragment(HomeFragment())
+
+        //manejo para el boton de retroceso
+        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                } else {
+                    if (supportFragmentManager.backStackEntryCount > 0) {
+                        supportFragmentManager.popBackStack()
+                    } else {
+                        finish()
+                    }
+                }
+            }
+        })
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -46,6 +62,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun handleNavigation(itemId: Int) {
+        //sincronizar seleccion de ambos menu
+        binding.navigationDrawer.setCheckedItem(itemId)
+        val bottonitem = binding.bottomNavigation.menu.findItem(itemId)
+        bottonitem?.isChecked = true
+
         when (itemId) {
             R.id.nav_home -> openFragment(HomeFragment())
             R.id.nav_espacios -> openFragment(EspaciosFragment())
@@ -53,20 +74,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_formacion -> openFragment(FormacionFragment())
             R.id.nav_videos -> openFragment(VideosFragment())
             R.id.nav_contacto -> openFragment(ContactoFragment())
+
+            else -> throw IllegalArgumentException("se desconoce el item seleccionado")
         }
     }
 
     private fun openFragment(fragment: Fragment) {
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragment_container, fragment)
+        fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
-    }
-
-    override fun onBackPressed() {
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
     }
 }
